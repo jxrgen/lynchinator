@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the Lynchinator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            color: white; /* White text */
+            background-image: url('https://d.latintimes.com/en/full/567704/david-lynch-dead.jpg?w=736&f=31195dafb17d2f556b46f48cd5ad14c7');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Overlay for opacity effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 50% opacity */
+            z-index: -1;
+        }
+
+        #video-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <iframe id="video-player" width="560" height="315" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+    </div>
+    <form id="random-form">
+        <label>
+            Find a random number from 
+            <input type="number" id="input1" name="input1" value="1" min="1" max="10" required>
+            to
+            <input type="number" id="input2" name="input2" value="10" min="1" max="10" required>
+        </label>
+        <br><br>
+        <button type="submit">Lynch that number!</button>
+    </form>
+
+    <script>
+        const videos = [
+            "https://www.youtube.com/embed/NfDniBBowyU?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/UK-z9Xn6G98?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/WHc-Bu5I7kw?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/LMHk7pmoLHU?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/_SMj-UUp3UA?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/cPT4xSKwiX0?start=11&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/Sr0mDlc0wi0?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/N02Rc8GURFM?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/kmpGFDRWsxY?start=12&cc_load_policy=0&autoplay=1",
+            "https://www.youtube.com/embed/0ZRik1FznO0?start=11&cc_load_policy=0&autoplay=1"
+        ];
+
+        document.getElementById("random-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const input1 = parseInt(document.getElementById("input1").value);
+            const input2 = parseInt(document.getElementById("input2").value);
+
+            if (input1 >= input2 || input1 < 1 || input2 > 10) {
+                alert("Error: 'From' must be less than 'To', and values must be between 1 and 10.");
+                return;
+            }
+
+            const randomNumber = Math.floor(Math.random() * (input2 - input1 + 1)) + input1;
+            const selectedVideo = videos[randomNumber - 1];
+
+            document.getElementById("video-player").src = selectedVideo;
+        });
+    </script>
+</body>
+</html>
